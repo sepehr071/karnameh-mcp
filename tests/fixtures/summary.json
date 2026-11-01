@@ -1,0 +1,26 @@
+{
+ "strengths": {
+  "extra_strengths": [],
+  "options_strengths": [],
+  "service_strengths": [
+   {
+    "label": "سرویس شده در نمایندگی",
+    "value": "serviced_at_agency"
+   }
+  ],
+  "document_strengths": [
+   {
+    "label": "سند تک برگ",
+    "value": "single_page"
+   },
+   {
+    "label": "گارانتی",
+    "value": "warranty"
+   }
+  ]
+ },
+ "carmaa_info": {
+  "carmaa_info": "بدنه سالم و بدون خط و خش است.",
+  "carmaa_status": "healthy"
+ }
+}

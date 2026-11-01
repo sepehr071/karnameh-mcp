@@ -1,0 +1,321 @@
+{
+ "count": 1,
+ "next": null,
+ "previous": null,
+ "results": [
+  {
+   "brand_en": "Peugeot",
+   "brand_fa": "پژو",
+   "brand_logo": "https://cdn.karnameh.com/autodetail/png/ec9e4c9689044cdeb7d9ab1832d15404.png",
+   "image": "https://cdn.karnameh.com/autodetail/png/17fa474cdd824b90b4136584c06b34b6.png",
+   "last_modified_at": "2026-10-31T08:00:19.199299Z",
+   "brand_model_info": {
+    "manufacture_factory_en_name": "IranKhodro",
+    "manufacture_factory_fa_name": "ایران خودرو",
+    "manufacture_country_en_name": "Iran",
+    "manufacture_country_fa_name": "ایران"
+   },
+   "count": 13,
+   "items": [
+    {
+     "name_en": "Peugeot 207i Automatic P TU5P",
+     "name_fa": "پژو 207i پانوراما اتوماتیک TU5P",
+     "market_price": 4650000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1405,
+     "model_en_title": "207i",
+     "type_en_title": "Automatic P TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "پانوراما اتوماتیک TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Automatic P TU5P",
+     "name_fa": "پژو 207i پانوراما اتوماتیک TU5P",
+     "market_price": 4370000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "Automatic P TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "پانوراما اتوماتیک TU5P",
+     "brand_fa_title": "پژو",
+     "option": "ارتقا یافته",
+     "sources": [
+      {
+       "source": "BAMA",
+       "source_fa": "باما",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/bama/bama.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Automatic P TU5P",
+     "name_fa": "پژو 207i پانوراما اتوماتیک TU5P",
+     "market_price": 4450000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "Automatic P TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "پانوراما اتوماتیک TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Automatic TU5P",
+     "name_fa": "پژو 207i اتوماتیک TU5P",
+     "market_price": 4370000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1405,
+     "model_en_title": "207i",
+     "type_en_title": "Automatic TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "اتوماتیک TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Automatic TU5P",
+     "name_fa": "پژو 207i اتوماتیک TU5P",
+     "market_price": 4250000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "Automatic TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "اتوماتیک TU5P",
+     "brand_fa_title": "پژو",
+     "option": "ارتقا یافته",
+     "sources": [
+      {
+       "source": "BAMA",
+       "source_fa": "باما",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/bama/bama.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Automatic TU5P",
+     "name_fa": "پژو 207i اتوماتیک TU5P",
+     "market_price": 4200000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "Automatic TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "اتوماتیک TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Manual P TU5P",
+     "name_fa": "پژو 207i پانوراما دنده ای TU5P",
+     "market_price": 3430000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1405,
+     "model_en_title": "207i",
+     "type_en_title": "Manual P TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "پانوراما دنده ای TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Manual P TU5P",
+     "name_fa": "پژو 207i پانوراما دنده ای TU5P",
+     "market_price": 3330000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "Manual P TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "پانوراما دنده ای TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i manual TU3",
+     "name_fa": "پژو 207i دنده‌ای TU3",
+     "market_price": 2700000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1405,
+     "model_en_title": "207i",
+     "type_en_title": "manual TU3",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "دنده‌ای TU3",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i manual TU3",
+     "name_fa": "پژو 207i دنده‌ای TU3",
+     "market_price": 2540000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "manual TU3",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "دنده‌ای TU3",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "BAMA",
+       "source_fa": "باما",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/bama/bama.svg"
+      },
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i manual TU5",
+     "name_fa": "پژو 207i دنده‌ای TU5",
+     "market_price": 2710000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "manual TU5",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "دنده‌ای TU5",
+     "brand_fa_title": "پژو",
+     "option": "هیدرولیک",
+     "sources": [
+      {
+       "source": "BAMA",
+       "source_fa": "باما",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/bama/bama.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Manual TU5P",
+     "name_fa": "پژو 207i دنده ای TU5P",
+     "market_price": 2950000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1405,
+     "model_en_title": "207i",
+     "type_en_title": "Manual TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "دنده ای TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    },
+    {
+     "name_en": "Peugeot 207i Manual TU5P",
+     "name_fa": "پژو 207i دنده ای TU5P",
+     "market_price": 2850000000,
+     "dealership_price": null,
+     "factory_price": null,
+     "production_year": 1404,
+     "model_en_title": "207i",
+     "type_en_title": "Manual TU5P",
+     "brand_en_title": "Peugeot",
+     "model_fa_title": "207i",
+     "type_fa_title": "دنده ای TU5P",
+     "brand_fa_title": "پژو",
+     "option": null,
+     "sources": [
+      {
+       "source": "KARNAMEH",
+       "source_fa": "کارنامه",
+       "logo": "https://cdn.karnameh.com/zeroprice-source-logo/karnameh/karnameh.svg"
+      }
+     ]
+    }
+   ],
+   "brand_model_en": "Peugeot 207i Manual TU5P",
+   "model_en": "207i",
+   "type_en": "Manual TU5P",
+   "brand_model_fa": "پژو 207i دنده ای TU5P",
+   "model_fa": "207i",
+   "type_fa": "دنده ای TU5P",
+   "mapped_option": null
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "car_images": [
+  {
+   "url": "https://cdn.karnameh.com/pictures/car-posts/c0a09446-5ae0-45d6-a7e6-4fc7c6142442_anonymized",
+   "name": "c0a09446-5ae0-45d6-a7e6-4fc7c6142442_anonymized",
+   "is_cover": true
+  },
+  {
+   "url": "https://cdn.karnameh.com/pictures/car-posts/44860223-2257-4d44-93d8-d0b4806c9b26_anonymized",
+   "name": "44860223-2257-4d44-93d8-d0b4806c9b26_anonymized",
+   "is_cover": false
+  }
+ ],
+ "is_leasing_available": true,
+ "strengths": {
+  "extra_strengths": [],
+  "options_strengths": [],
+  "service_strengths": [
+   {
+    "label": "سرویس شده در نمایندگی",
+    "value": "serviced_at_agency"
+   }
+  ],
+  "document_strengths": [
+   {
+    "label": "سند تک برگ",
+    "value": "single_page"
+   },
+   {
+    "label": "گارانتی",
+    "value": "warranty"
+   }
+  ]
+ },
+ "state": "P",
+ "has_inspection": true,
+ "carmaa_token": "9f40ed94-61d0-4ea6-b881-71420a0d9269",
+ "widget": [
+  {
+   "value": "تهران",
+   "name": "شهر"
+  },
+  {
+   "value": "2024",
+   "name": "سال ساخت"
+  },
+  {
+   "value": "3000 کیلومتر",
+   "name": "کارکرد"
+  },
+  {
+   "value": "5 ماه",
+   "name": "بیمه شخص ثالث"
+  },
+  {
+   "value": "سفید",
+   "name": "رنگ"
+  }
+ ],
+ "description": "کد آگهی: 323891\nتویوتا لوین ۱۸۰۰ هیبرید\nبی توضیح،گارانتی فعال\n\nخودرو شخصی و در منزل مالک قابل رویت میباشد.\n\nمبلغ درج شده «بهای تمام شده خودرو\nبوده» و شامل هزینه های دیگری نمیشود .\n\nامکان خرید اقساطی خودرو\nمعامله امن و شفاف از طریق پلتفرم کارنامه\n\nهمراه با کارشناسی رایگان کارنامه در زمان بازدید و ضمانت جبران خسارت تا سقف 1.200 میلیون تومان\nکارشناس:سهیل عباسی\nپاسخگویی:۹ الی ۲۱",
+ "post_type": "CS",
+ "concierge_sale_id": 323891,
+ "is_professional": null,
+ "is_authentic": false,
+ "brand_name_en": "Toyota",
+ "brand_name_fa": "تویوتا",
+ "model_name_en": "Levin",
+ "model_name_fa": "لوین",
+ "type_name_en": "Hybrid",
+ "type_name_fa": "هیبرید",
+ "city_name_fa": "تهران",
+ "city_name_en": "tehran",
+ "usage": 3000,
+ "title": "تویوتا لوین مدل 2024",
+ "prepayment_amount": 6449150000,
+ "advertisement_price": 8450000000,
+ "brand_model": "Toyota Levin Hybrid",
+ "year": 2024,
+ "token": "baaf71a3-3544-47ea-8335-084e318ad263",
+ "price_update_date": "2026-10-28T11:44:04.675888+00:00",
+ "inspection_date": "2026-02-21T18:00:00",
+ "inspection_report_link": "https://karnameh.com/car-inspection/report/7d178e80-64a3-4e13-b06b-6ae405370810",
+ "inspection_carmaa_token": "9f40ed94-61d0-4ea6-b881-71420a0d9269",
+ "city": 1,
+ "displayable_year": 2024,
+ "body_status": "intact",
+ "has_active_campaign": false
+}

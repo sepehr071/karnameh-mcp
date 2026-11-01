@@ -1,0 +1,100 @@
+{
+ "logo": "",
+ "brand_model_fa": "",
+ "years": {
+  "1405": {
+   "range": {
+    "min_avg_market_price": "2400000000",
+    "max_avg_market_price": "2890000000",
+    "min_avg_dealership_price": null,
+    "max_avg_dealership_price": null,
+    "min_avg_factory_price": null,
+    "max_avg_factory_price": null
+   },
+   "items": {
+    "basic": {
+     "color": "#FF5733",
+     "items": [
+      {
+       "day": "2026-10-24",
+       "avg_market_price": "2890000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-25",
+       "avg_market_price": "2870000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-26",
+       "avg_market_price": "2850000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-27",
+       "avg_market_price": "2800000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-28",
+       "avg_market_price": "2800000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      }
+     ]
+    }
+   }
+  },
+  "1404": {
+   "range": {
+    "min_avg_market_price": "2300000000",
+    "max_avg_market_price": "2750000000",
+    "min_avg_dealership_price": null,
+    "max_avg_dealership_price": null,
+    "min_avg_factory_price": null,
+    "max_avg_factory_price": null
+   },
+   "items": {
+    "basic": {
+     "color": "#FF5733",
+     "items": [
+      {
+       "day": "2026-10-24",
+       "avg_market_price": "2750000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-25",
+       "avg_market_price": "2730000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-26",
+       "avg_market_price": "2750000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-27",
+       "avg_market_price": "2700000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      },
+      {
+       "day": "2026-10-28",
+       "avg_market_price": "2700000000",
+       "avg_dealership_price": null,
+       "avg_factory_price": null
+      }
+     ]
+    }
+   }
+  }
+ }
+}

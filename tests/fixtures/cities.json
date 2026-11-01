@@ -1,0 +1,58 @@
+{
+ "data": [
+  {
+   "pk": 1,
+   "name": "تهران",
+   "en_name": "tehran",
+   "filter_id": 1
+  },
+  {
+   "pk": 2,
+   "name": "کرج",
+   "en_name": "karaj",
+   "filter_id": 2
+  },
+  {
+   "pk": 3,
+   "name": "مشهد",
+   "en_name": "mashhad",
+   "filter_id": 3
+  },
+  {
+   "pk": 4,
+   "name": "اصفهان",
+   "en_name": "isfahan",
+   "filter_id": 4
+  },
+  {
+   "pk": 6,
+   "name": "رشت",
+   "en_name": "rasht",
+   "filter_id": 12
+  },
+  {
+   "pk": 9,
+   "name": "شیراز",
+   "en_name": "shiraz",
+   "filter_id": 6
+  },
+  {
+   "pk": 14,
+   "name": "رامسر",
+   "en_name": "ramsar",
+   "filter_id": 745
+  },
+  {
+   "pk": 15,
+   "name": "ابهر",
+   "en_name": "abhar",
+   "filter_id": 802
+  },
+  {
+   "pk": 16,
+   "name": "تنکابن",
+   "en_name": "Tonekabon",
+   "filter_id": 833
+  }
+ ]
+}
