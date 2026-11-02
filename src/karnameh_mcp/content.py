@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import html
 import re
 from datetime import date, timedelta
@@ -125,7 +126,18 @@ def _parse_widgets(widgets: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 async def _variant(slug: str) -> dict[str, Any]:
-    body = await fetch(f"{AUTODETAIL}/info/{slug}")
+    fallback = None
+    try:
+        body = await fetch(f"{AUTODETAIL}/info/{slug}")
+    except ApiError as e:
+        if e.status != 400:
+            raise
+        # a catalog variant with no spec sheet of its own: `info` answers 400, so use its parent model's sheet
+        detail = await fetch(f"{AUTODETAIL}/brand-model-detail/{slug}/", {"lookup_field": "slug"})
+        fallback = ((detail.get("parent_detail") or {}).get("parent") or {}).get("slug")
+        if not fallback:
+            raise
+        body = await fetch(f"{AUTODETAIL}/info/{fallback}")
     types = body.get("types") or []
     if not types:
         raise ApiError("No specs for that slug. Find a variant slug with kn_specs_search.")
@@ -134,7 +146,13 @@ async def _variant(slug: str) -> dict[str, Any]:
         raise ApiError(f"That slug is a model with several variants. Pick one of: {names}.")
     crumbs = body.get("breadcrumb", [])
     path = "/".join([crumbs[0]["slug"], *(b["en_title"] for b in crumbs[1:])]) if crumbs else ""
-    return {"slug": types[0]["slug"], **_parse_widgets(types[0]["widgets"]), "url": f"{SITE}/car-reviews/{path}"}
+    note = {"note": f"No spec sheet for {slug}; showing its model {fallback}."} if fallback else {}
+    return {
+        "slug": types[0]["slug"],
+        **note,
+        **_parse_widgets(types[0]["widgets"]),
+        "url": f"{SITE}/car-reviews/{path}",
+    }
 
 
 @tool("Car specs and review summary")
@@ -310,13 +328,18 @@ async def kn_city_stats(
 ) -> dict[str, Any]:
     """Count Karnameh's used-car ads in every city, optionally for one brand, model or price ceiling.
 
-    Use to see where a car is for sale. Also gives each city's cheapest ad. Makes one request per city, so it is
+    Use to see where a car is for sale. Also gives each city's cheapest ad. Makes one request per city (9, run together), so it is
     slower than kn_cars. Search a city's ads with kn_cars(city=...).
     """
     cities = (await fetch("/rest/api/cities/v1/"))["data"]
+    results = await asyncio.gather(
+        *(
+            kn_cars(brand=brand, model=model, city=c["en_name"], max_price=max_price, sort="cheapest", limit=1)
+            for c in cities
+        )
+    )
     out = []
-    for c in cities:
-        r = await kn_cars(brand=brand, model=model, city=c["en_name"], max_price=max_price, sort="cheapest", limit=1)
+    for c, r in zip(cities, results, strict=True):
         cheapest = r["ads"][0] if r["ads"] else None
         out.append(
             {
