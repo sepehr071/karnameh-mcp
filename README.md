@@ -52,7 +52,7 @@ Any other client: command `uvx`, args `["karnameh-mcp"]`.
 | `kn_price_history` | Daily average price per production year, plus each source's quote for a year. |
 | `kn_price_movers` | New-car variants ranked by their latest percent price change (rises, drops). |
 | `kn_specs_search` | Find a car variant's slug in the specs catalog. |
-| `kn_specs` | Technical specs, AI review score, pros and cons, web reviews of one variant. |
+| `kn_specs` | Technical specs, AI review score, pros and cons, web reviews of one variant (falls back to the parent model's sheet, with a note, when the variant has none). |
 | `kn_compare_specs` | Two to four variants side by side (only the differing rows by default). |
 | `kn_city_stats` | Used-ad count and cheapest ad in every city, optionally per brand or model. |
 | `kn_inspection_centers` | Karnameh walk-in inspection and paint-check centers of a city. |
