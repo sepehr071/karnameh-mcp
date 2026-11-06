@@ -19,7 +19,7 @@ BLOG = f"{SITE}/blog/wp-json/wp/v2"
 Slug = Annotated[
     str,
     Field(
-        description="Variant slug from kn_specs_search (`slug`), e.g. peugeot-207i-automatic-tu5p.",
+        description="Variant `slug` from kn_specs_search.",
         pattern=r"^[a-z0-9][a-z0-9._-]{1,100}$",
     ),
 ]
@@ -37,14 +37,13 @@ def _text(h: str) -> str:
 async def kn_specs_search(
     query: Annotated[
         str,
-        Field(description="Brand, model or variant name, Persian or English, e.g. 207, corolla, سمند.", min_length=1),
+        Field(description="Brand, model or variant, Persian or English, e.g. corolla.", min_length=1),
     ],
-    limit: Annotated[int, Field(description="How many matches to return (1-30).", ge=1, le=30)] = 10,
+    limit: Annotated[int, Field(description="Matches to return.", ge=1, le=30)] = 10,
 ) -> dict[str, Any]:
     """Find car variants in Karnameh's specs catalog and return the `slug` that kn_specs and kn_compare_specs take.
 
-    Use first when you want the technical specs, expert review summary or a comparison of a car. Results marked
-    `variant: true` have specs; a brand or model match only names a group, so search again with more words.
+    Only results with `variant: true` have specs; otherwise search again with more words.
     """
     rows = await fetch(f"{AUTODETAIL}/search/", {"q": query.strip()})
     out = [
@@ -159,24 +158,19 @@ async def _variant(slug: str) -> dict[str, Any]:
 async def kn_specs(slug: Slug) -> dict[str, Any]:
     """Get one car variant's technical specs, Karnameh's expert review score, pros and cons and web reviews.
 
-    Use after kn_specs_search. Specs are grouped (dimensions, engine and performance, safety, comfort, multimedia).
-    The summary and score are AI-written from web reviews, so treat them as opinion. For prices call
-    kn_price_list; for used ads of the car call kn_cars.
+    Use after kn_specs_search. The summary and score are AI-written from web reviews: opinion.
     """
     return await _variant(slug)
 
 
 @tool("Compare car specs")
 async def kn_compare_specs(
-    slugs: Annotated[
-        list[Slug], Field(description="Two to four variant slugs from kn_specs_search.", min_length=2, max_length=4)
-    ],
-    only_differences: Annotated[bool, Field(description="List only the spec rows where the cars differ.")] = True,
+    slugs: Annotated[list[Slug], Field(description="Variant slugs from kn_specs_search.", min_length=2, max_length=4)],
+    only_differences: Annotated[bool, Field(description="Only rows where the cars differ.")] = True,
 ) -> dict[str, Any]:
     """Compare two to four car variants side by side: review score, pros, cons and every spec row.
 
-    Use for "A or B?" questions after finding slugs with kn_specs_search. Values are listed in the same order as
-    `cars`. Add prices with kn_price_list and used-market asking prices with kn_cars.
+    Use for "A or B?" after kn_specs_search. Spec values follow the order of `cars`.
     """
     cars = [await _variant(s) for s in slugs]
     rows: dict[str, dict[str, list[str | None]]] = {}
@@ -195,7 +189,7 @@ async def kn_compare_specs(
 
 @tool("Car blog articles")
 async def kn_articles(
-    query: Annotated[str | None, Field(description="Search words in Persian, e.g. 'کرولا' or 'بیمه'.")] = None,
+    query: Annotated[str | None, Field(description="Persian search words.")] = None,
     category: Annotated[
         Literal[
             "car-news",
@@ -208,14 +202,14 @@ async def kn_articles(
             "introduction",
         ]
         | None,
-        Field(description="Blog section: news, reviews and comparisons, maintenance, learning, rules, legal tips."),
+        Field(description="Blog section."),
     ] = None,
-    limit: Annotated[int, Field(description="How many articles to return (1-20).", ge=1, le=20)] = 10,
-    page: Annotated[int, Field(description="Page number, starting at 1.", ge=1)] = 1,
+    limit: Annotated[int, Field(description="Articles to return.", ge=1, le=20)] = 10,
+    page: Annotated[int, Field(description="Page number.", ge=1)] = 1,
 ) -> dict[str, Any]:
-    """Search or list articles of the Karnameh car magazine (karnameh.com/blog): news, reviews, maintenance, laws.
+    """Search or list articles of the Karnameh car magazine: news, reviews, maintenance, laws.
 
-    Newest first. Use to find a review, a buying guide or a rule explanation, then read it with kn_article(id).
+    Newest first. Read one with kn_article(id).
     """
     params: dict[str, Any] = {
         "per_page": limit,
@@ -253,13 +247,11 @@ async def kn_articles(
 @tool("Read a blog article")
 async def kn_article(
     id: Annotated[int, Field(description="Article id from kn_articles.", ge=1)],
-    max_chars: Annotated[
-        int, Field(description="Cut the text after this many characters (500-20000).", ge=500, le=20000)
-    ] = 6000,
+    max_chars: Annotated[int, Field(description="Cut text after this many characters.", ge=500, le=20000)] = 6000,
 ) -> dict[str, Any]:
     """Read one article of the Karnameh car magazine as plain text.
 
-    Use after kn_articles. Long articles are cut at `max_chars`; `truncated` says so and `url` has the full page.
+    Use after kn_articles. Cut at `max_chars` (`truncated`); `url` has the full page.
     """
     p = await fetch(f"{BLOG}/posts/{id}", {"_fields": "id,date,modified,link,title,content"})
     body = _text(p["content"]["rendered"])
@@ -276,19 +268,14 @@ async def kn_article(
 
 @tool("Biggest new-car price movers")
 async def kn_price_movers(
-    direction: Annotated[
-        Literal["up", "down", "any"], Field(description="Biggest rises, biggest drops, or biggest in either direction.")
-    ] = "up",
-    days: Annotated[
-        int, Field(description="Only quotes dated within this many days of the newest quote (1-30).", ge=1, le=30)
-    ] = 3,
-    year: Annotated[int | None, Field(description="Production year (Persian, e.g. 1404).", ge=1380, le=1450)] = None,
-    limit: Annotated[int, Field(description="How many rows to return (1-50).", ge=1, le=50)] = 15,
+    direction: Annotated[Literal["up", "down", "any"], Field(description="Biggest rises, drops, or either.")] = "up",
+    days: Annotated[int, Field(description="Only quotes within this many days of the newest.", ge=1, le=30)] = 3,
+    year: Annotated[int | None, Field(description="Production year (Persian, 1404).", ge=1380, le=1450)] = None,
+    limit: Annotated[int, Field(description="Rows to return.", ge=1, le=50)] = 15,
 ) -> dict[str, Any]:
     """Rank new (zero-km) car variants by the percent change of their latest price quote.
 
-    Use for "which cars got more expensive lately". `change_percent` is the change against the previous quote.
-    Call kn_price_history with a row's `name` for the trend behind it.
+    `change_percent` is against the previous quote. Trend: kn_price_history with a row's `name`.
     """
     rows = await fetch(f"{PRICES}/last-prices/")
     newest = max(r["date"] for r in rows)
@@ -322,14 +309,13 @@ async def kn_price_movers(
 
 @tool("Used-car listing counts per city")
 async def kn_city_stats(
-    brand: Annotated[str | None, Field(description="Brand name, English or Persian (see kn_brands).")] = None,
-    model: Annotated[str | None, Field(description="Model name within the brand.")] = None,
-    max_price: Annotated[int | None, Field(description="Maximum price in Toman.", ge=0)] = None,
+    brand: Annotated[str | None, Field(description="English or Persian brand (kn_brands).")] = None,
+    model: Annotated[str | None, Field(description="Model within the brand.")] = None,
+    max_price: Annotated[int | None, Field(description="Maximum price, Toman.", ge=0)] = None,
 ) -> dict[str, Any]:
     """Count Karnameh's used-car ads in every city, optionally for one brand, model or price ceiling.
 
-    Use to see where a car is for sale. Also gives each city's cheapest ad. Makes one request per city (9, run together), so it is
-    slower than kn_cars. Search a city's ads with kn_cars(city=...).
+    Gives each city's cheapest ad. Makes one request per city, so it is slower than kn_cars(city=...).
     """
     cities = (await fetch("/rest/api/cities/v1/"))["data"]
     results = await asyncio.gather(
@@ -355,11 +341,11 @@ async def kn_city_stats(
 
 @tool("Karnameh inspection centers")
 async def kn_inspection_centers(
-    city_id: Annotated[int, Field(description="City `id` from kn_cities (Tehran is 1).", ge=1)],
+    city_id: Annotated[int, Field(description="City `id` from kn_cities.", ge=1)],
 ) -> dict[str, Any]:
     """List Karnameh's walk-in car inspection and paint-check centers in a city, with address and map coordinates.
 
-    Use when the user wants to get a car inspected. Booking and prices are not public here; the site books it.
+    Booking and prices are not available here.
     """
     rows = await fetch("/rest/api/evaluation/v1/inspection-center/", {"city_id": city_id})
     return {

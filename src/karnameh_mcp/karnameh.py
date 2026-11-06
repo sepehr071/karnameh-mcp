@@ -15,14 +15,14 @@ PRICES = "/priceestimator/api/zeroprice"
 AdId = Annotated[
     str,
     Field(
-        description="Ad id (the `id` field from kn_cars), a UUID like 4385b37e-6ce5-413b-9477-6386b20902bd.",
+        description="Ad `id` from kn_cars (UUID).",
         pattern=r"^[0-9a-fA-F-]{36}$",
     ),
 ]
 PriceName = Annotated[
     str,
     Field(
-        description="Exact English model-variant name from kn_price_list (`name`), e.g. 'Peugeot 207i Manual TU5P'.",
+        description="Exact English `name` from kn_price_list or kn_latest_prices, e.g. 'Peugeot 207i Manual TU5P'.",
         min_length=3,
         max_length=100,
     ),
@@ -100,41 +100,33 @@ async def _english(brand: str | None, model: str | None) -> tuple[str | None, st
 async def kn_cars(
     query: Annotated[
         str | None,
-        Field(description="Free text in Persian, e.g. 'سمند' or 'پژو 206'. Use brand/model for exact filters."),
+        Field(description="Persian free text, e.g. 'پژو 206'."),
     ] = None,
     brand: Annotated[
         str | None,
-        Field(description="Brand name, English slug (peugeot, kia, toyota) or Persian (پژو). See kn_brands."),
+        Field(description="English slug (peugeot) or Persian brand. See kn_brands."),
     ] = None,
     model: Annotated[
         str | None,
-        Field(
-            description="Model name within the brand, e.g. 206 or Corolla (English as listed by kn_brands) or Persian."
-        ),
+        Field(description="Model within the brand, e.g. 206 or Corolla, or Persian."),
     ] = None,
-    city: Annotated[str | None, Field(description="City slug from kn_cities, e.g. tehran, karaj, mashhad.")] = None,
-    min_price: Annotated[
-        int | None, Field(description="Minimum price in Toman, e.g. 1000000000 for one billion.", ge=0)
-    ] = None,
-    max_price: Annotated[int | None, Field(description="Maximum price in Toman.", ge=0)] = None,
+    city: Annotated[str | None, Field(description="City slug from kn_cities, e.g. tehran.")] = None,
+    min_price: Annotated[int | None, Field(description="Minimum price, Toman.", ge=0)] = None,
+    max_price: Annotated[int | None, Field(description="Maximum price, Toman.", ge=0)] = None,
     min_year: Annotated[
-        int | None, Field(description="Oldest model year, Persian (1398) or Gregorian (2019).", ge=1300, le=2100)
+        int | None, Field(description="Oldest year, Persian (1398) or Gregorian.", ge=1300, le=2100)
     ] = None,
-    max_year: Annotated[
-        int | None, Field(description="Newest model year, Persian or Gregorian.", ge=1300, le=2100)
-    ] = None,
-    max_usage_km: Annotated[int | None, Field(description="Maximum odometer reading in km.", ge=0)] = None,
-    inspected_only: Annotated[bool, Field(description="Only ads with a Karnameh expert inspection report.")] = False,
-    installments_only: Annotated[bool, Field(description="Only ads that can be bought in instalments.")] = False,
-    sort: Annotated[Literal["newest", "cheapest", "priciest"], Field(description="Result order.")] = "newest",
-    limit: Annotated[int, Field(description="How many ads to return (1-50).", ge=1, le=50)] = 20,
-    offset: Annotated[int, Field(description="Skip this many ads (paging).", ge=0)] = 0,
+    max_year: Annotated[int | None, Field(description="Newest year, Persian or Gregorian.", ge=1300, le=2100)] = None,
+    max_usage_km: Annotated[int | None, Field(description="Maximum odometer, km.", ge=0)] = None,
+    inspected_only: Annotated[bool, Field(description="Only inspected ads.")] = False,
+    installments_only: Annotated[bool, Field(description="Only ads with instalments.")] = False,
+    sort: Annotated[Literal["newest", "cheapest", "priciest"], Field(description="Order.")] = "newest",
+    limit: Annotated[int, Field(description="Ads to return.", ge=1, le=50)] = 20,
+    offset: Annotated[int, Field(description="Ads to skip.", ge=0)] = 0,
 ) -> dict[str, Any]:
-    """Search Karnameh's used-car ads (karnameh.com/buy-used-cars) by brand, model, city, price, year and mileage.
+    """Search Karnameh's used-car ads by brand, model, city, price, year and mileage.
 
-    Use this to find cars for sale or to see what a model costs on the market. Prices are asking prices in Toman.
-    Pass an ad's `id` to kn_car for the full description, strengths and inspection summary. Only Karnameh's own
-    listed ads are covered (a few hundred), not all of Iran.
+    Prices are asking prices in Toman. Pass an ad's `id` to kn_car for the full ad.
     """
     brand, model = await _english(brand, model)
     body = await fetch(
@@ -164,8 +156,7 @@ async def kn_cars(
 async def kn_car(id: AdId) -> dict[str, Any]:
     """Get one Karnameh used-car ad: price, specs, seller's description, strengths and the inspection summary.
 
-    Use after kn_cars to read an ad in full. The detailed inspection report itself needs a Karnameh login, so only
-    its date, link and one-line body verdict are returned. Seller phone numbers are not available.
+    Use after kn_cars. Only the inspection date, link and one-line verdict are available; no seller phone.
     """
     d = await fetch(f"{STORAGE}/car-post-detail/{id}/")
     try:
@@ -209,15 +200,12 @@ async def kn_car(id: AdId) -> dict[str, Any]:
 async def kn_brands(
     query: Annotated[
         str | None,
-        Field(
-            description="Part of a brand or model name, Persian or English, e.g. پژو, 206, kia. Empty lists all brands."
-        ),
+        Field(description="Part of a brand or model name, Persian or English. Empty lists all brands."),
     ] = None,
 ) -> dict[str, Any]:
     """Look up Karnameh's car brands and models, Persian and English, to get the names the other tools expect.
 
-    Use first when you only have a Persian name or are unsure of the spelling. Pass the English `brand` and `model`
-    values to kn_cars. Zero-km price lists (kn_price_list) use their own English variant names.
+    Pass the English `brand` and `model` to kn_cars. kn_price_list uses its own English names.
     """
     rows = await _catalog_rows()
     q = (query or "").strip().lower()
@@ -262,30 +250,23 @@ def _price_item(i: dict[str, Any]) -> dict[str, Any]:
 
 @tool("New-car market prices")
 async def kn_price_list(
-    brand: Annotated[
-        str | None, Field(description="English brand name as in the price list, e.g. Peugeot, Toyota, Changan.")
-    ] = None,
-    model: Annotated[str | None, Field(description="English model name within the brand, e.g. 207i.")] = None,
-    search: Annotated[str | None, Field(description="Free text in Persian, e.g. سمند.")] = None,
-    origin: Annotated[
-        Literal["domestic", "foreign"] | None, Field(description="Iranian-made or imported cars.")
-    ] = None,
+    brand: Annotated[str | None, Field(description="English brand, e.g. Peugeot, Toyota.")] = None,
+    model: Annotated[str | None, Field(description="English model, e.g. 207i.")] = None,
+    search: Annotated[str | None, Field(description="Persian free text, e.g. سمند.")] = None,
+    origin: Annotated[Literal["domestic", "foreign"] | None, Field(description="Iranian-made or imported.")] = None,
     country: Annotated[
         str | None,
-        Field(description="Country of manufacture in English: China, Iran, Japan, Korea, German, France or Italia."),
+        Field(description="China, Iran, Japan, Korea, German, France or Italia."),
     ] = None,
-    min_price: Annotated[int | None, Field(description="Minimum market price, Toman.", ge=0)] = None,
-    max_price: Annotated[int | None, Field(description="Maximum market price, Toman.", ge=0)] = None,
-    year: Annotated[
-        int | None, Field(description="Only this production year (Persian, e.g. 1405).", ge=1380, le=1450)
-    ] = None,
-    page: Annotated[int, Field(description="Page of 10 model groups; the answer says how many pages exist.", ge=1)] = 1,
+    min_price: Annotated[int | None, Field(description="Minimum price, Toman.", ge=0)] = None,
+    max_price: Annotated[int | None, Field(description="Maximum price, Toman.", ge=0)] = None,
+    year: Annotated[int | None, Field(description="Production year (Persian, 1405).", ge=1380, le=1450)] = None,
+    page: Annotated[int, Field(description="Page of 10 model groups.", ge=1)] = 1,
 ) -> dict[str, Any]:
-    """List today's market prices of new (zero-km) cars from Karnameh's car-price pages (karnameh.com/car-price).
+    """List today's market prices of new (zero-km) cars from Karnameh's car-price pages.
 
-    Use for "how much is a new X" or to compare models. Prices are Toman and daily; each row is a variant and
-    production year with its price sources. Only variants Karnameh prices today are listed (no Peugeot Pars or 405;
-    kn_latest_prices has older ones). For price movement over time call kn_price_history with a row's `name`.
+    Use for "how much is a new X". Each row is a variant and production year, in Toman. Older variants (Pars, 405)
+    are only in kn_latest_prices. For trends call kn_price_history with a row's `name`.
     """
     body = await fetch(
         f"{PRICES}/prices/list/",
@@ -321,15 +302,14 @@ async def kn_price_list(
 @tool("Latest new-car price quotes")
 async def kn_latest_prices(
     query: Annotated[
-        str | None, Field(description="Part of the English variant name, e.g. Pars, Dena, Corolla. Empty for all.")
+        str | None, Field(description="Part of the English variant name, e.g. Pars, Dena. Empty for all.")
     ] = None,
-    year: Annotated[int | None, Field(description="Production year (Persian, e.g. 1404).", ge=1380, le=1450)] = None,
-    limit: Annotated[int, Field(description="How many quotes to return (1-100).", ge=1, le=100)] = 25,
+    year: Annotated[int | None, Field(description="Production year (Persian, 1404).", ge=1380, le=1450)] = None,
+    limit: Annotated[int, Field(description="Quotes to return.", ge=1, le=100)] = 25,
 ) -> dict[str, Any]:
     """List the most recent price quotes of new cars with the day's percent change.
 
-    Covers more variants than kn_price_list (including older models), each with the date of its last quote.
-    Use to see what moved lately or to find a variant's exact English name for kn_price_history.
+    Covers more variants than kn_price_list, including older models. Gives the exact `name` for kn_price_history.
     """
     rows = await fetch(f"{PRICES}/last-prices/")
     q = (query or "").strip().lower()
@@ -356,17 +336,12 @@ async def kn_latest_prices(
 @tool("New-car price history")
 async def kn_price_history(
     name: PriceName,
-    year: Annotated[
-        int | None, Field(description="Production year (Persian). Omit for every year.", ge=1380, le=1450)
-    ] = None,
-    days: Annotated[
-        int, Field(description="How many of the latest daily points to return per year (1-90).", ge=1, le=90)
-    ] = 30,
+    year: Annotated[int | None, Field(description="Production year (Persian). Omit for all.", ge=1380, le=1450)] = None,
+    days: Annotated[int, Field(description="Latest daily points per year.", ge=1, le=90)] = 30,
 ) -> dict[str, Any]:
     """Get the daily average market price history of one new-car variant, per production year.
 
-    Use after kn_price_list or kn_latest_prices for a trend ("is it going up?"). `name` must be the exact English
-    variant name. With `year`, also lists each source's current quote for that year.
+    Use after kn_price_list or kn_latest_prices. With `year`, also lists each source's current quote.
     """
     body = await fetch(f"{PRICES}/prices/averages/daily/", {"brand_model": name})
     years = {}
