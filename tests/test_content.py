@@ -33,6 +33,16 @@ async def test_specs_bad_slug_is_a_tool_error(client, api):
     assert r.is_error
 
 
+async def test_specs_inactive_sheet_says_so(client, api):
+    api[INFO + "pride-132-sl"] = lambda request: httpx.Response(400, json={"detail": "Not Active."})
+    api["/autodetail/api/v1/brand-model/brand-model-detail/pride-132-sl/"] = {
+        "parent_detail": {"parent": {"slug": "pride"}}
+    }
+    api[INFO + "pride"] = lambda request: httpx.Response(400, json={"detail": "Not Active."})
+    r = await client.call_tool("kn_specs", {"slug": "pride-132-sl"})
+    assert r.is_error and "no active spec sheet" in r.content[0].text
+
+
 async def test_compare_specs_lists_only_differences_and_tolerates_missing_data(client, api):
     api[INFO + SLUG] = fixture("info.json")
     api[INFO + SPARSE] = fixture("info_sparse.json")

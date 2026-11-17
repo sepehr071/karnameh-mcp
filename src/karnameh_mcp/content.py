@@ -134,9 +134,17 @@ async def _variant(slug: str) -> dict[str, Any]:
         # a catalog variant with no spec sheet of its own: `info` answers 400, so use its parent model's sheet
         detail = await fetch(f"{AUTODETAIL}/brand-model-detail/{slug}/", {"lookup_field": "slug"})
         fallback = ((detail.get("parent_detail") or {}).get("parent") or {}).get("slug")
+        no_sheet = ApiError(
+            f"Karnameh has no active spec sheet for {slug} (only about 50 variants have one). "
+            "Use kn_price_list or kn_cars for this car instead.",
+            400,
+        )
         if not fallback:
-            raise
-        body = await fetch(f"{AUTODETAIL}/info/{fallback}")
+            raise no_sheet from e
+        try:
+            body = await fetch(f"{AUTODETAIL}/info/{fallback}")
+        except ApiError as e2:
+            raise (no_sheet if e2.status == 400 else e2) from e2
     types = body.get("types") or []
     if not types:
         raise ApiError("No specs for that slug. Find a variant slug with kn_specs_search.")
